@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenSpa UV - Expérience Futuriste</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --neon-purple: #bc13fe;
+            --neon-blue: #0ff0fc;
+            --neon-pink: #ff44cc;
+            --uv-dark: #0f0a1a;
+        }
+        
+        body {
+            background-color: var(--uv-dark);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(15, 10, 26, 0.7), rgba(15, 10, 26, 0.9)), 
+                        url('https://images.unsplash.com/photo-1560743641-3914f2c45636?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 5px var(--neon-purple), 
+                         0 0 10px var(--neon-purple),
+                         0 0 20px var(--neon-purple);
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 5px var(--neon-blue), 
+                        0 0 10px var(--neon-blue),
+                        inset 0 0 5px var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+        }
+        
+        .neon-card {
+            transition: all 0.3s ease;
+            background: rgba(15, 10, 26, 0.7);
+            border: 1px solid transparent;
+        }
+        
+        .neon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px var(--neon-pink),
+                       inset 0 0 10px rgba(255, 68, 204, 0.2);
+            border-color: var(--neon-pink);
+        }
+        
+        .uv-btn {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+        
+        .uv-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+        
+        .uv-section {
+            background: radial-gradient(circle at center, #1a1030 0%, #0f0a1a 100%);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .service-icon {
+            color: var(--neon-blue);
+            filter: drop-shadow(0 0 5px var(--neon-blue));
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(11, 240, 252, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(11, 240, 252, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(11, 240, 252, 0); }
+        }
+        
+        .glow-text {
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--neon-blue), 0 0 20px var(--neon-blue); }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--neon-purple), 0 0 40px var(--neon-purple); }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Header & Navigation -->
+    <header class="fixed w-full bg-black bg-opacity-90 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i class="fas fa-atom text-3xl text-purple-500 mr-2 neon-text"></i>
+                    <span class="text-2xl font-bold text-white">ZenSpa<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-400">UV</span></span>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-purple-400">Accueil</a>
+                    <a href="#about" class="nav-link text-white hover:text-blue-400">Concept</a>
+                    <a href="#services" class="nav-link text-white hover:text-pink-400">Services UV</a>
+                    <a href="#gallery" class="nav-link text-white hover:text-blue-400">Galerie</a>
+                    <a href="#team" class="nav-link text-white hover:text-purple-400">Thérapeutes</a>
+                    <a href="#contact" class="nav-link text-white hover:text-pink-400">Contact</a>
+                </nav>
+                
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 bg-black bg-opacity-90 rounded-lg p-4 neon-border">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="block px-3 py-2 rounded hover:bg-purple-900 hover:bg-opacity-30">Accueil</a>
+                    <a href="#about" class="block px-3 py-2 rounded hover:bg-blue-900 hover:bg-opacity-30">Concept</a>
+                    <a href="#services" class="block px-3 py-2 rounded hover:bg-pink-900 hover:bg-opacity-30">Services UV</a>
+                    <a href="#gallery" class="block px-3 py-2 rounded hover:bg-blue-900 hover:bg-opacity-30">Galerie</a>
+                    <a href="#team" class="block px-3 py-2 rounded hover:bg-purple-900 hover:bg-opacity-30">Thérapeutes</a>
+                    <a href="#contact" class="block px-3 py-2 rounded hover:bg-pink-900 hover:bg-opacity-30">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero flex items-center justify-center text-white pt-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 glow-text">Expérience <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-400">UV</span> Unique</h1>
+            <p class="text-xl md:text-2xl mb-8 neon-text">Découvrez la thérapie lumineuse nouvelle génération</p>
+            <a href="#reservation" class="uv-btn font-bold py-3 px-8 rounded-full text-lg">Réserver maintenant</a>
+            
+            <div class="mt-12 flex justify-center">
+                <div class="w-16 h-16 rounded-full bg-blue-500 flex items-center justify-center pulse">
+                    <i class="fas fa-arrow-down text-white text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 uv-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Notre <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-400">Concept UV</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-400 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <div class="neon-border rounded-lg overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Spa UV" class="w-full h-auto">
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold text-white mb-6">Thérapie <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-400">Lumière Noire</span></h3>
+                    <p class="text-gray-300 mb-4">ZenSpa UV révolutionne l'expérience spa avec une approche futuriste combinant technologies lumineuses et bien-être ancestral.</p>
+                    <p class="text-gray-300 mb-6">Nos cabines UV spécialement conçues utilisent des spectres lumineux précis pour stimuler la régénération cellulaire tout en offrant une relaxation profonde.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-bolt service-icon mr-2"></i>
+                            <span class="text-gray-300">Luminothérapie avancée</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-atom service-icon mr-2"></i>
+                            <span class="text-gray-300">Technologie quantique</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-moon service-icon mr-2"></i>
+                            <span class="text-gray-300">Ambiance immersive</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-spa service-icon mr-2"></i>
+                            <span class="text-gray-300">Huiles biofluorescentes</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#services" class="inline-block mt-4 border border-purple-500 text-purple-400 hover:bg-purple-900 hover:bg-opacity-30 font-medium py-2 px-6 rounded-full transition duration-300 neon-border">Découvrir nos services</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gradient-to-b from-black to-purple-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Nos <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-pink-500">Services UV</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-pink-500 mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Des expériences uniques sous lumière noire pour régénérer corps et esprit</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-biohazard service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Détox UV Complète</h3>
+                    <p class="text-gray-300 mb-4">Session de luminothérapie intensive combinée à un massage aux huiles biofluorescentes pour une détoxification cellulaire profonde.</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+                        <span class="text-purple-400 font-bold">À partir de 500 MAD</span>
+                        <span class="text-sm text-gray-500">90 min</span>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-moon service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Voyage Astral UV</h3>
+                    <p class="text-gray-300 mb-4">Expérience immersive combinant chromothérapie avancée, sons binauraux et massage énergétique sous lumière noire.</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+                        <span class="text-blue-400 font-bold">À partir de 650 MAD</span>
+                        <span class="text-sm text-gray-500">120 min</span>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-atom service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Soin Quantique</h3>
+                    <p class="text-gray-300 mb-4">Traitement révolutionnaire utilisant des fréquences lumineuses spécifiques pour rééquilibrer l'énergie cellulaire.</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+                        <span class="text-pink-400 font-bold">À partir de 750 MAD</span>
+                        <span class="text-sm text-gray-500">75 min</span>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-spa service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Enveloppement Lumineux</h3>
+                    <p class="text-gray-300 mb-4">Enveloppement aux algues fluorescentes combiné à une séance de luminothérapie pour régénérer la peau.</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+                        <span class="text-purple-400 font-bold">À partir de 450 MAD</span>
+                        <span class="text-sm text-gray-500">60 min</span>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-star service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Forfait Galactique</h3>
+                    <p class="text-gray-300 mb-4">Journée complète de soins UV incluant détox, massage quantique et repas énergétique sous lumière noire.</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+                        <span class="text-blue-400 font-bold">À partir de 1500 MAD</span>
+                        <span class="text-sm text-gray-500">4 heures</span>
+                    </div>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="text-4xl mb-4">
+                        <i class="fas fa-user-astronaut service-icon"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Initiation UV</h3>
+                    <p class="text-gray-300 mb-4">Découverte des bienfaits de la thérapie UV avec une séance courte combinant lumière et relaxation.</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+                        <span class="text-pink-400 font-bold">À partir de 300 MAD</span>
+                        <span class="text-sm text-gray-500">30 min</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#reservation" class="uv-btn font-bold py-3 px-8 rounded-full text-lg">Réserver un service</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 uv-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Galerie <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Lumineuse</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Explorez notre univers sensoriel sous lumière UV</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="overflow-hidden rounded-lg neon-border transform transition duration-500 hover:scale-105">
+                    <img src="https://images.unsplash.com/photo-1560743641-3914f2c45636?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cabine UV" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-black bg-opacity-70">
+                        <h3 class="text-lg font-semibold text-white">Cabine UV Premium</h3>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-lg neon-border transform transition duration-500 hover:scale-105">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Massage UV" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-black bg-opacity-70">
+                        <h3 class="text-lg font-semibold text-white">Massage sous Lumière Noire</h3>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-lg neon-border transform transition duration-500 hover:scale-105">
+                    <img src="./img/pexels-karolina-grabowska-4210372.jpg" alt="Espace détente UV" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-black bg-opacity-70">
+                        <h3 class="text-lg font-semibold text-white">Espace Détente Fluorescent</h3>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-lg neon-border transform transition duration-500 hover:scale-105">
+                    <img src="./img/pexels-olly-3764552.jpg" alt="Soin visage UV" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-black bg-opacity-70">
+                        <h3 class="text-lg font-semibold text-white">Soin du Visage Biofluorescent</h3>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-lg neon-border transform transition duration-500 hover:scale-105">
+                    <img src="./img/pexels-castorlystock-3872899.jpg" alt="Piscine UV" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-black bg-opacity-70">
+                        <h3 class="text-lg font-semibold text-white">Piscine à Effet Lumineux</h3>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-lg neon-border transform transition duration-500 hover:scale-105">
+                    <img src="./img/pexels-tara-winstead-6690884.jpg" alt="Salle UV" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-black bg-opacity-70">
+                        <h3 class="text-lg font-semibold text-white">Salle d'Immersion UV</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-gradient-to-b from-purple-900 to-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Nos <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-blue-400">Thérapeutes UV</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-blue-400 mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Rencontrez nos experts en thérapie lumineuse</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-black bg-opacity-50 rounded-lg overflow-hidden text-center pb-6 neon-border hover:border-pink-500 transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Dr. Lumina" class="w-full h-64 object-cover">
+                    <h3 class="text-xl font-bold text-white mt-4">Dr. Lumina</h3>
+                    <p class="text-blue-400 mb-2">Spécialiste en Photothérapie</p>
+                    <p class="text-gray-300 px-4">PhD en Biophysique Lumineuse, 12 ans d'expérience</p>
+                    <div class="flex justify-center mt-4 space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-black bg-opacity-50 rounded-lg overflow-hidden text-center pb-6 neon-border hover:border-purple-500 transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Nova" class="w-full h-64 object-cover">
+                    <h3 class="text-xl font-bold text-white mt-4">Nova</h3>
+                    <p class="text-purple-400 mb-2">Thérapeute Quantique</p>
+                    <p class="text-gray-300 px-4">Expert en rééquilibrage énergétique par la lumière</p>
+                    <div class="flex justify-center mt-4 space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-black bg-opacity-50 rounded-lg overflow-hidden text-center pb-6 neon-border hover:border-blue-500 transition duration-300">
+                    <img src="./img/pexels-ilkinefendiyev-20718223.jpg" alt="Stella" class="w-full h-64 object-cover">
+                    <h3 class="text-xl font-bold text-white mt-4">Stella</h3>
+                    <p class="text-pink-400 mb-2">Esthéticienne UV</p>
+                    <p class="text-gray-300 px-4">Spécialiste des soins cutanés sous lumière noire</p>
+                    <div class="flex justify-center mt-4 space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-black bg-opacity-50 rounded-lg overflow-hidden text-center pb-6 neon-border hover:border-pink-500 transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Orion" class="w-full h-64 object-cover">
+                    <h3 class="text-xl font-bold text-white mt-4">Orion</h3>
+                    <p class="text-blue-400 mb-2">Directeur Scientifique</p>
+                    <p class="text-gray-300 px-4">Pionnier des thérapies lumineuses au Maroc</p>
+                    <div class="flex justify-center mt-4 space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-pink-400"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 uv-section">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Témoignages <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">Lumineux</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-pink-500 to-purple-500 mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Ce que nos clients disent de leur expérience UV</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Sarah" class="w-12 h-12 rounded-full object-cover neon-border">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold text-white">Sarah</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"Le voyage astral UV a dépassé toutes mes attentes. Une expérience sensorielle unique qui m'a transportée dans une autre dimension de relaxation."</p>
+                </div>
+                
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Karim" class="w-12 h-12 rounded-full object-cover neon-border">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold text-white">Karim</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"En tant que scientifique, j'ai été impressionné par l'approche rigoureuse de la thérapie lumineuse. Les résultats sur mon stress sont tangibles."</p>
+                </div>
+                
+                <div class="neon-card p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Leila" class="w-12 h-12 rounded-full object-cover neon-border">
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-lg font-semibold text-white">Leila</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"Mon soin quantique a été révelateur. Ma peau n'a jamais été aussi lumineuse et mon énergie a considérablement augmenté."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="py-20 bg-gradient-to-r from-purple-900 to-blue-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Réservez Votre <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-200">Expérience UV</span></h2>
+                <div class="w-24 h-1 bg-white mx-auto"></div>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-200">Planifiez votre voyage lumineux dès maintenant</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto bg-black bg-opacity-50 rounded-lg shadow-xl overflow-hidden neon-border">
+                <div class="md:flex">
+                    <div class="md:w-1/2 bg-gradient-to-b from-purple-900 to-blue-900 p-8 flex items-center">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">Pourquoi réserver?</h3>
+                            <ul class="space-y-3 text-gray-200">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-300"></i>
+                                    <span>Accès exclusif aux dernières technologies UV</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2 text-purple-300"></i>
+                                    <span>15% de réduction sur votre première réservation</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2 text-pink-300"></i>
+                                    <span>Choix des meilleurs créneaux horaires</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle mt-1 mr-2 text-blue-300"></i>
+                                    <span>Préparation personnalisée avant votre séance</span>
+                                </li>
+                            </ul>
+                            
+                            <div class="mt-8">
+                                <h4 class="text-lg font-semibold text-white mb-2">Contact Rapide</h4>
+                                <p class="text-gray-300 mb-2"><i class="fas fa-phone-alt mr-2 text-blue-300"></i> +212 522 123 456</p>
+                                <p class="text-gray-300"><i class="fas fa-envelope mr-2 text-purple-300"></i> uv@zenspamaroc.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 p-8">
+                        <form>
+                            <div class="mb-4">
+                                <label class="block text-gray-300 mb-2" for="name">Nom complet</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-gray-300 mb-2" for="email">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-gray-300 mb-2" for="phone">Téléphone</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-white">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-gray-300 mb-2" for="service">Service UV</label>
+                                <select id="service" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
+                                    <option class="bg-gray-800">Détox UV Complète</option>
+                                    <option class="bg-gray-800">Voyage Astral UV</option>
+                                    <option class="bg-gray-800">Soin Quantique</option>
+                                    <option class="bg-gray-800">Enveloppement Lumineux</option>
+                                    <option class="bg-gray-800">Forfait Galactique</option>
+                                </select>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-gray-300 mb-2" for="date">Date</label>
+                                    <input type="date" id="date" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 mb-2" for="time">Heure</label>
+                                    <input type="time" id="time" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-white">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="w-full uv-btn font-bold py-3 px-4 rounded-lg">Confirmer la Réservation</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Contactez <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">ZenSpa UV</span></h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Nos experts en thérapie lumineuse sont à votre disposition</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h3 class="text-2xl font-bold text-white mb-6">Nos <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-400">Coordonnées</span></h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start neon-border p-4 rounded-lg">
+                            <i class="fas fa-map-marker-alt text-purple-400 mt-1 mr-4 text-xl"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Adresse UV</h4>
+                                <p class="text-gray-300">456 Avenue des Étoiles, Quartier Futura, Casablanca</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start neon-border p-4 rounded-lg">
+                            <i class="fas fa-phone-alt text-blue-400 mt-1 mr-4 text-xl"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Téléphone</h4>
+                                <p class="text-gray-300">+212 522 789 012</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start neon-border p-4 rounded-lg">
+                            <i class="fas fa-envelope text-pink-400 mt-1 mr-4 text-xl"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Email</h4>
+                                <p class="text-gray-300">contact@zenspauv.ma</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start neon-border p-4 rounded-lg">
+                            <i class="fas fa-clock text-blue-400 mt-1 mr-4 text-xl"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Horaires Lumineux</h4>
+                                <p class="text-gray-300">Lundi - Vendredi: 10h - 22h<br>Samedi - Dimanche: 9h - 20h</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold text-white mb-4">Réseaux Sociaux</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-900 hover:bg-blue-600 w-10 h-10 rounded-full flex items-center justify-center text-white transition duration-300 neon-border">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-gray-900 hover:bg-pink-600 w-10 h-10 rounded-full flex items-center justify-center text-white transition duration-300 neon-border">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-gray-900 hover:bg-blue-400 w-10 h-10 rounded-full flex items-center justify-center text-white transition duration-300 neon-border">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-gray-900 p-8 rounded-lg neon-border">
+                        <h3 class="text-2xl font-bold text-white mb-6">Message <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-pink-400">Lumineux</span></h3>
+                        <form>
+                            <div class="mb-4">
+                                <label class="block text-gray-300 mb-2" for="contact-name">Nom</label>
+                                <input type="text" id="contact-name" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-white">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-gray-300 mb-2" for="contact-email">Email</label>
+                                <input type="email" id="contact-email" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-gray-300 mb-2" for="contact-subject">Sujet</label>
+                                <input type="text" id="contact-subject" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 text-white">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-300 mb-2" for="contact-message">Message</label>
+                                <textarea id="contact-message" rows="4" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full uv-btn font-bold py-3 px-4 rounded-lg">Envoyer le Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Google Maps -->
+            <div class="mt-16 rounded-lg overflow-hidden neon-border">
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13228.031548081088!2d-6.8264693!3d34.0180085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda76b03da84bb21%3A0x9f935d346d187bac!2sduo%20des%20reines!5e0!3m2!1sfr!2sma!4v1746115945193!5m2!1sfr!2sma" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-atom text-3xl text-purple-500 mr-2"></i>
+                        <span class="text-2xl font-bold text-white">ZenSpa<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-400">UV</span></span>
+                    </div>
+                    <p class="text-gray-400">Pionnier de la thérapie lumineuse au Maroc, fusionnant science et bien-être pour une expérience sensorielle unique.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Explorer</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-purple-400 transition duration-300">Accueil</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-blue-400 transition duration-300">Concept UV</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-pink-400 transition duration-300">Services</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-blue-400 transition duration-300">Thérapeutes</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-purple-400 transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Services UV</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition duration-300">Détox Lumineuse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-purple-400 transition duration-300">Voyage Astral</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-pink-400 transition duration-300">Soin Quantique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-blue-400 transition duration-300">Forfaits</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-purple-400 transition duration-300">Ateliers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Abonnez-vous pour recevoir nos offres spéciales et actualités lumineuses.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Votre email" class="px-4 py-2 w-full rounded-l-lg focus:outline-none bg-gray-800 text-white">
+                        <button type="submit" class="bg-gradient-to-r from-purple-500 to-blue-500 px-4 rounded-r-lg">
+                            <i class="fas fa-paper-plane text-white"></i>
+                        </button>
+                    </form>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-400 text-xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-pink-400 text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-400 text-xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-900 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2023 ZenSpa UV. Tous droits réservés.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-purple-400">Confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400">Conditions</a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+        // Change navbar style on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+                header.classList.add('bg-black');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
+        
+        // Add glow effect to current section in navigation
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('nav a');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navItems.forEach(item => {
+                item.classList.remove('text-purple-400', 'text-blue-400', 'text-pink-400');
+                if (item.getAttribute('href').includes(current)) {
+                    if (current === 'home' || current === 'team') {
+                        item.classList.add('text-purple-400');
+                    } else if (current === 'about' || current === 'gallery') {
+                        item.classList.add('text-blue-400');
+                    } else {
+                        item.classList.add('text-pink-400');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
